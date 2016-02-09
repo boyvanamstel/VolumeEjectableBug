@@ -30,3 +30,50 @@ isRemovable.boolValue and isEjectable.boolValue should be 1 for drives that can 
 
 ## Actual Results:
 isRemovable.boolValue and isEjectable.boolValue return 0.
+
+## Application Output:
+
+When I run the command line application I made, it returns the following output:
+
+```
+2016-02-09 12:57:48.325 VolumeEjectableBug[17743:373814] Disk properties:
+Disk: Macintosh HD
+- Protocol: SATA
+- Removable: 0
+- Ejectable: 0
+- Internal: 1
+
+Disk: Some Disk
+- Protocol: FireWire
+- Removable: 0
+- Ejectable: 0
+- Internal: 0
+
+Disk: Another Disk
+- Protocol: FireWire
+- Removable: 0
+- Ejectable: 0
+- Internal: 0
+
+Disk: B
+- Protocol: USB
+- Removable: 1
+- Ejectable: 1
+- Internal: 0
+
+Disk: G
+- Protocol: USB
+- Removable: 1
+- Ejectable: 1
+- Internal: 0
+
+Disk: Elements
+- Protocol: USB
+- Removable: 0
+- Ejectable: 0
+- Internal: 0
+
+Program ended with exit code: 0
+```
+
+Especially the disks called Elements, Some Disk and Another Disk are interesting. They appear ejectable in Finder and can be ejected through code, but they return 0 for both NSURLVolumeIsRemovableKey and NSURLVolumeIsEjectableKe.
