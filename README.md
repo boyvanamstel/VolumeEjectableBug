@@ -1,4 +1,6 @@
-# NSURLVolumeIsRemovableKey and NSURLVolumeIsEjectableKey return false while drives are ejectable and removable
+# rdar://24565565
+
+## NSURLVolumeIsRemovableKey and NSURLVolumeIsEjectableKey return false while drives are ejectable and removable
 When querying an NSURL that points to an external hard drive (note that it has to be an external hard drive. SD cards etc. do work properly) with NSURLVolumeIsRemovableKey and NSURLVolumeIsEjectableKey they always return false, while the volumes can actually be ejected from both Finder and code.
 
 ## Steps to Reproduce:
@@ -19,7 +21,7 @@ NSNumber *isEjectable;
 
 *. Log the value somewhere.
 
-NSLog(@"isRemovable: %i, isEjectable: %i", isRemovable.boolValue, isEjectable.boolValue);
+```NSLog(@"isRemovable: %i, isEjectable: %i", isRemovable.boolValue, isEjectable.boolValue);```
 
 * Note that isRemovable.boolValue and isEjectable.boolValue will be 0 for disks that can actually be removed.
 
