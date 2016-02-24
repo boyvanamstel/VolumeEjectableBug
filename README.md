@@ -1,5 +1,15 @@
 # rdar://24565565
 
+# Answer from Apple
+
+Engineering has determined that this issue behaves as intended based on the following information: 
+
+In the IORegistry, the “Elements” volume is “disk8” and both the “Removable” and “Ejectable” properties are “No”. That’s why the NSURLVolumeIsRemovableKey and NSURLVolumeIsEjectableKey are returning false.
+
+The fact that Finder is displaying the eject icon is based on NSURLVolumeIsInternalKey being false (the drive is external), not due to  NSURLVolumeIsRemovableKey or NSURLVolumeIsEjectableKey. The Finder provides a way to unmount/eject external devices.
+
+NSURLVolumeIsRemovableKey means the drive (i.e. a floppy disk, MO, DVD, etc) has media that is removable. NSURLVolumeIsEjectableKey means the device should have DADiskEject() called on it before it is unmounted (which on a disk drive with non-removable media may be needed to shut the hardware down safely).
+
 ## NSURLVolumeIsRemovableKey and NSURLVolumeIsEjectableKey return false while drives are ejectable and removable
 When querying an NSURL that points to an external hard drive (note that it has to be an external hard drive. SD cards etc. do work properly) with NSURLVolumeIsRemovableKey and NSURLVolumeIsEjectableKey they always return false, while the volumes can actually be ejected from both Finder and code.
 
